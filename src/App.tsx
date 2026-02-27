@@ -5,6 +5,8 @@ import { checkAuth } from './store/slices/authSlice';
 
 // Pages
 import LoginPage from './pages/loginPage';
+import RegisterPage from './pages/RegisterPage';
+import HomePage from './pages/HomePage';
 
 // Components
 // import ProtectedRoute from './components/Auth/ProtectedRoute';
@@ -20,6 +22,10 @@ const App: React.FC = () => {
         <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+
+            {/* Home Page - Task Management */}
+            <Route path="/" element={<HomePage />} />
 
             {/* Protected Routes */}
             {/*<Route*/}
@@ -29,7 +35,7 @@ const App: React.FC = () => {
             {/*            <DashboardPage />*/}
             {/*        </ProtectedRoute>*/}
             {/*    }*/}
-            {/*/>*/}
+            {/*/> */}
 
             {/* Redirect unknown routes */}
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -38,4 +44,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-

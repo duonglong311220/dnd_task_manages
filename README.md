@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# 🎯 DnD Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ứng dụng quản lý công việc theo kiểu Kanban (Drag & Drop) với đầy đủ tính năng.
 
-Currently, two official plugins are available:
+## 📁 Cấu trúc dự án
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+DnD_task_manages/
+├── src/               # Frontend - React + TypeScript + Vite
+└── backend/           # Backend - Node.js + Express + Prisma + PostgreSQL
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Công nghệ sử dụng
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Frontend (`/src`)
+- **React 18** + **TypeScript**
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **Redux Toolkit** - State management
+- **TanStack Query** - Server state & API caching
+- **@dnd-kit** - Drag & Drop
+- **React Router v6** - Routing
+- **React Icons** - Icon library
+- **Axios** - HTTP client
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Backend (`/backend`)
+- **Node.js** + **Express** + **TypeScript**
+- **PostgreSQL** - Database
+- **Prisma ORM** - Database ORM & migrations
+- **JWT** (jsonwebtoken) - Authentication
+- **bcryptjs** - Password hashing
+- **Zod** - Request validation
+- **CORS**, **dotenv**
+
+---
+
+## 🚀 Cài đặt & Chạy dự án
+
+### Yêu cầu
+- Node.js >= 18
+- PostgreSQL >= 14
+
+### 1. Backend
+
+```bash
+cd backend
+npm install
+
+# Copy và cấu hình file môi trường
+cp .env.example .env
+# Chỉnh sửa .env với thông tin database của bạn
+
+# Tạo database & chạy migration
+npm run db:migrate
+
+# Seed dữ liệu mẫu (optional)
+npm run db:seed
+
+# Chạy dev server (port 3001)
+npm run dev
 ```
+
+### 2. Frontend
+
+```bash
+# Tại thư mục gốc
+npm install
+
+# Chạy dev server (port 5173)
+npm run dev
+```
+
+### 3. Truy cập
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3001/api
+- Prisma Studio: `cd backend && npm run db:studio`
+
+---
+
+## 📋 API Endpoints
+
+| Method | Endpoint | Mô tả |
+|--------|----------|-------|
+| POST | `/api/auth/register` | Đăng ký |
+| POST | `/api/auth/login` | Đăng nhập |
+| POST | `/api/auth/refresh` | Refresh token |
+| GET | `/api/workspaces` | Lấy danh sách workspace |
+| POST | `/api/workspaces` | Tạo workspace mới |
+| GET | `/api/workspaces/:id/spaces` | Lấy spaces của workspace |
+| GET | `/api/spaces/:id/columns` | Lấy columns của space |
+| GET | `/api/columns/:id/tasks` | Lấy tasks của column |
+| POST | `/api/tasks` | Tạo task mới |
+| PATCH | `/api/tasks/:id` | Cập nhật task |
+| DELETE | `/api/tasks/:id` | Xóa task |
+
+---
+
+## 🔐 Tài khoản demo
+
+```
+Email: demo@example.com
+Password: password123
+```
+
+
+

@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@gmail.com",
+      "password": "admin1234",
+      "name": "Admin User",
+      "avatar": "",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "columnId": "col-1",
+      "title": "Research Kanban libraries",
+      "description": "Compare dnd-kit with react-beautiful-dnd",
+      "priority": "high",
+      "order": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "task-2",
+      "columnId": "col-1",
+      "title": "Design UI mockups",
+      "description": "Create Figma designs for the task board",
+      "priority": "medium",
+      "dueDate": "2026-02-01",
+      "order": 1,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "task-3",
+      "columnId": "col-2",
+      "title": "Implement drag and drop",
+      "description": "Setup dnd-kit context and sortable components",
+      "priority": "urgent",
+      "order": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "task-4",
+      "columnId": "col-3",
+      "title": "Review PR #42",
+      "description": "Check authentication flow implementation",
+      "priority": "low",
+      "order": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "task-5",
+      "columnId": "col-4",
+      "title": "Setup project structure",
+      "description": "Initialize React + TypeScript + Tailwind project",
+      "priority": "medium",
+      "order": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,49 +1,54 @@
 import api from './api';
 import { User, LoginCredentials, RegisterData } from '../types';
 
+interface AuthResponse {
+  user: User;
+  accessToken: string;
+  refreshToken: string;
+}
+
+function saveTokens(accessToken: string, refreshToken: string) {
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', refreshToken);
+}
+
 export const authService = {
   async login(credentials: LoginCredentials): Promise<User> {
-    const response = await api.get<User[]>('/users', {
-      params: {
-        email: credentials.email,
-        password: credentials.password,
-      },
-    });
-
-    if (response.data.length === 0) {
-      throw new Error('Email hoặc mật khẩu không đúng');
-    }
-
-    return response.data[0];
+    const response = await api.post<{ success: boolean; data: AuthResponse }>('/auth/login', credentials);
+    const { user, accessToken, refreshToken } = response.data.data;
+    saveTokens(accessToken, refreshToken);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
   },
 
   async register(data: RegisterData): Promise<User> {
-    const existingUsers = await api.get<User[]>('/users', {
-      params: { email: data.email },
-    });
+    const response = await api.post<{ success: boolean; data: AuthResponse }>('/auth/register', data);
+    const { user, accessToken, refreshToken } = response.data.data;
+    saveTokens(accessToken, refreshToken);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
+  },
 
-    if (existingUsers.data.length > 0) {
-      throw new Error('Email đã được sử dụng');
+  async logout(): Promise<void> {
+    try {
+      await api.post('/auth/logout');
+    } finally {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
     }
-
-    const newUser: Omit<User, 'id'> = {
-      ...data,
-      avatar: '',
-      createdAt: new Date().toISOString(),
-    };
-
-    const response = await api.post<User>('/users', newUser);
-    return response.data;
   },
 
-  async updateUser(id: string, data: Partial<User>): Promise<User> {
-    const response = await api.patch<User>(`/users/${id}`, data);
-    return response.data;
+  async updateUser(_id: string, data: Partial<User>): Promise<User> {
+    const response = await api.patch<{ success: boolean; data: User }>('/users/me', data);
+    const user = response.data.data;
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
   },
 
-  async getUserById(id: string): Promise<User> {
-    const response = await api.get<User>(`/users/${id}`);
-    return response.data;
+  async getUserById(_id: string): Promise<User> {
+    const response = await api.get<{ success: boolean; data: User }>('/users/me');
+    return response.data.data;
   },
 };
 

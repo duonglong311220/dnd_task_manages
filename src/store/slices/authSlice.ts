@@ -1,10 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User, LoginCredentials, RegisterData } from '../../types';
 import { authService } from '../../services/authService';
+import { queryClient } from '../../main';
+import { resetWorkspace } from './workspaceSlice';
 
 const loadUserFromStorage = (): User | null => {
   const userStr = localStorage.getItem('user');
-  if (userStr) {
+  const token = localStorage.getItem('accessToken');
+  if (userStr && token) {
     try {
       return JSON.parse(userStr);
     } catch {
@@ -23,10 +26,13 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (credentials: LoginCredentials, { rejectWithValue }) => {
+  async (credentials: LoginCredentials, { rejectWithValue, dispatch }) => {
     try {
       const user = await authService.login(credentials);
       localStorage.setItem('user', JSON.stringify(user));
+      // Clear cache data của user cũ, reset workspace state
+      queryClient.clear();
+      dispatch(resetWorkspace());
       return user;
     } catch (error) {
       if (error instanceof Error) {
@@ -39,10 +45,13 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (data: RegisterData, { rejectWithValue }) => {
+  async (data: RegisterData, { rejectWithValue, dispatch }) => {
     try {
       const user = await authService.register(data);
       localStorage.setItem('user', JSON.stringify(user));
+      // Clear cache data của user cũ, reset workspace state
+      queryClient.clear();
+      dispatch(resetWorkspace());
       return user;
     } catch (error) {
       if (error instanceof Error) {
@@ -78,6 +87,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.error = null;
       localStorage.removeItem('user');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
     },
     clearError: (state) => {
       state.error = null;
