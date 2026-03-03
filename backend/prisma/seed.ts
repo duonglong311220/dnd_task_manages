@@ -1,10 +1,10 @@
 import { PrismaClient, Priority, WorkspaceRole } from '@prisma/client';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Seeding database...');
+  console.log('Seeding database...');
 
   // Create demo user
   const passwordHash = await bcrypt.hash('password123', 10);
@@ -18,7 +18,7 @@ async function main() {
       avatar: '',
     },
   });
-  console.log(`✅ Created user: ${user.email}`);
+  console.log(`Created user: ${user.email}`);
 
   // Create workspace
   const workspace = await prisma.workspace.create({
@@ -34,7 +34,7 @@ async function main() {
       },
     },
   });
-  console.log(`✅ Created workspace: ${workspace.name}`);
+  console.log(`Created workspace: ${workspace.name}`);
 
   // Create space
   const space = await prisma.space.create({
@@ -46,7 +46,7 @@ async function main() {
       order: 0,
     },
   });
-  console.log(`✅ Created space: ${space.name}`);
+  console.log(`Created space: ${space.name}`);
 
   // Create columns
   const columns = await Promise.all([
@@ -111,10 +111,9 @@ async function main() {
       },
     }),
   ]);
-  console.log('✅ Created sample tasks');
-  console.log('\n🎉 Seed completed!');
-  console.log('📧 Login: demo@example.com');
-  console.log('🔑 Password: password123');
+  console.log('Created sample tasks');
+  console.log('Login: demo@example.com');
+  console.log('Password: password123');
 }
 
 main()

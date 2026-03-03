@@ -7,7 +7,6 @@ import { updateSpaceSchema } from './spaces.schema';
 const router = Router();
 router.use(authenticate);
 
-// Mounted at /spaces
 router.patch('/:id', validate(updateSpaceSchema), spacesController.update);
 router.delete('/:id', spacesController.delete);
 

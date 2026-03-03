@@ -4,13 +4,11 @@ import { authenticate } from '../../middlewares/authenticate';
 import { validate } from '../../middlewares/validate';
 import { createTaskSchema, updateTaskSchema, moveTaskSchema, reorderTasksSchema } from './tasks.schema';
 
-// Mounted at /columns/:columnId/tasks
 const columnTasksRouter = Router({ mergeParams: true });
 columnTasksRouter.use(authenticate);
 columnTasksRouter.get('/', tasksController.getByColumn);
 columnTasksRouter.post('/', validate(createTaskSchema), tasksController.create);
 
-// Mounted at /tasks
 const tasksRouter = Router();
 tasksRouter.use(authenticate);
 tasksRouter.patch('/reorder', validate(reorderTasksSchema), tasksController.reorder);

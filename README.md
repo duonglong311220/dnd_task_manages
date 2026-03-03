@@ -1,16 +1,8 @@
-# 🎯 DnD Task Manager
+# DnD Task Manager
 
 Ứng dụng quản lý công việc theo kiểu Kanban (Drag & Drop) với đầy đủ tính năng.
 
-## 📁 Cấu trúc dự án
-
-```
-DnD_task_manages/
-├── src/               # Frontend - React + TypeScript + Vite
-└── backend/           # Backend - Node.js + Express + Prisma + PostgreSQL
-```
-
-## 🛠 Công nghệ sử dụng
+## Công nghệ sử dụng
 
 ### Frontend (`/src`)
 - **React 18** + **TypeScript**
@@ -34,7 +26,7 @@ DnD_task_manages/
 
 ---
 
-## 🚀 Cài đặt & Chạy dự án
+## Cài đặt & Chạy dự án
 
 ### Yêu cầu
 - Node.js >= 18
@@ -95,7 +87,7 @@ npm run dev
 
 ---
 
-## 🔐 Tài khoản demo
+## Tài khoản demo
 
 ```
 Email: demo@example.com
