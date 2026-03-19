@@ -8,9 +8,6 @@ import LoginPage from './pages/loginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 
-// Components
-// import ProtectedRoute from './components/Auth/ProtectedRoute';
-
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
 
@@ -20,11 +17,8 @@ const App: React.FC = () => {
 
     return (
         <Routes>
-            {/* Public Routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-
-            {/* Home Page - Task Management */}
             <Route path="/" element={<HomePage />} />
 
             {/* Protected Routes */}
